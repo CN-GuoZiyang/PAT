@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "ratio": "c",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "queue": "cpp"
     }
 }
