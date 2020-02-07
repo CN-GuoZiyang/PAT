@@ -2,6 +2,7 @@
     "files.associations": {
         "ratio": "c",
         "algorithm": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "vector": "cpp"
     }
 }
