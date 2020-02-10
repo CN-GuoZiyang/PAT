@@ -7,6 +7,11 @@
         "__split_buffer": "cpp",
         "deque": "cpp",
         "string": "cpp",
-        "iterator": "cpp"
+        "iterator": "cpp",
+        "cstdio": "cpp",
+        "__hash_table": "cpp",
+        "__tree": "cpp",
+        "map": "cpp",
+        "unordered_map": "cpp"
     }
 }
