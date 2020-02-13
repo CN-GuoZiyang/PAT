@@ -4,7 +4,7 @@ pages:
   stage: deploy
   image: ubuntu:latest
   before_script:
-    - apt-get update -qq&&apt-get install -y -qq pandoc
+    - apt-get update && apt-get install -y pandoc
   script:
     - mkdir .public
     - pandoc -f markdown -t html -o index.html -s 解题报告.md
