@@ -1,0 +1,19 @@
+# This file is a template, and might need editing before it works on your project.
+# Full project: https://gitlab.com/pages/plain-html
+pages:
+  stage: deploy
+  image: ubuntu:latest
+  before_script:
+    - apt-get update -qq&&apt-get install -y -qq pandoc
+  script:
+    - mkdir .public
+    - pandoc -f markdown -t html -o index.html -s 解题报告.md
+    - cp index.html .public
+    - mv .public public
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
+  tags:
+    - pages
