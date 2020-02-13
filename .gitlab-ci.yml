@@ -2,9 +2,7 @@
 # Full project: https://gitlab.com/pages/plain-html
 pages:
   stage: deploy
-  image: ubuntu:latest
-  before_script:
-    - apt-get update && apt-get install -y pandoc
+  image: pandoc/core:latest
   script:
     - mkdir .public
     - pandoc -f markdown -t html -o index.html -s 解题报告.md
