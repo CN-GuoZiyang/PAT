@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>PAT甲级解题报告</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.15.10/styles/atom-one-dark.min.css">
+  <script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll('pre code').forEach((block) => {
+      hljs.highlightBlock(block);
+    });
+  });
+  </script>
+  <style>
+  #content {
+      width: 70%;
+      margin: 0 auto;
+  }
+  </style>
+</head>
+<body>
+<div id="content">
+<header id="title-block-header">
+<h1 class="title">PAT甲级解题报告</h1>
+</header>
+<h3 id="ab-format-20分">1001 A+B Format (20分)</h3>
+<p>格式化字符串，要求隔三位按逗号分隔。</p>
+<p>使用std::to_string可将数字转化为字符串，在输出时可直接将字符串看作和C一样的字符出租按下标索引。</p>
+<p>输出时注意到，除却负号和最后一个字符外，每一个len-i模3余1的字符后都需要输出逗号。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">#include </span><span class="im">&lt;cstdio&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="pp">#include </span><span class="im">&lt;string&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="dt">int</span> main()</span>
+<span id="cb1-6"><a href="#cb1-6"></a>{</span>
+<span id="cb1-7"><a href="#cb1-7"></a>    <span class="dt">int</span> a, b;</span>
+<span id="cb1-8"><a href="#cb1-8"></a>    scanf(<span class="st">&quot;</span><span class="sc">%d</span><span class="st"> </span><span class="sc">%d</span><span class="st">&quot;</span>, &amp;a, &amp;b);</span>
+<span id="cb1-9"><a href="#cb1-9"></a>    string sumStr = to_string(a + b);</span>
+<span id="cb1-10"><a href="#cb1-10"></a>    <span class="dt">int</span> len = sumStr.length();</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    <span class="cf">for</span>(<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; len; i ++)</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    {</span>
+<span id="cb1-13"><a href="#cb1-13"></a>        printf(<span class="st">&quot;</span><span class="sc">%c</span><span class="st">&quot;</span>, sumStr[i]);</span>
+<span id="cb1-14"><a href="#cb1-14"></a>        <span class="cf">if</span>(sumStr[i] == <span class="ch">&#39;-&#39;</span>) <span class="cf">continue</span>;</span>
+<span id="cb1-15"><a href="#cb1-15"></a>        <span class="cf">if</span>((len - i)%<span class="dv">3</span> == <span class="dv">1</span> &amp;&amp; i != len - <span class="dv">1</span>) printf(<span class="st">&quot;,&quot;</span>);</span>
+<span id="cb1-16"><a href="#cb1-16"></a>    }</span>
+<span id="cb1-17"><a href="#cb1-17"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb1-18"><a href="#cb1-18"></a>}</span></code></pre></div>
+<h3 id="ab-for-polynomials">1002 A+B for Polynomials</h3>
+<p>这题用cpp重写之后不知道为什么写复杂了……</p>
+<p>将两个多项式相加，Java党很自然地想到使用HashMap，C++里的map是基于红黑树的，查询速度也很快！</p>
+<p>由于输出的时候需要按照指数排序，也就是按照map的key从大到小排序，而map是个无序的集合，所以需要将map转存在vector里，vector是动态数组。map里的每一个元素为一个pair，如map&lt;int, double&gt;的元素就说pair&lt;int, double&gt;，转存在vector后即可使用std::sort进行排序。每一个pair的first就是键，second就是值。</p>
+<p>需要注意的是，使用std::sort排序的时候，需要导入algorithm包。在我的mac下使用g++时无需导包，但是PAT会编译错误。</p>
+<p>另外，在判断double数值是否为0时需要引入误差，还需要首先计算绝对值再和误差比较。注意注意！</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1"></a><span class="pp">#include </span><span class="im">&lt;cstdio&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="pp">#include </span><span class="im">&lt;map&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="pp">#include </span><span class="im">&lt;algorithm&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="pp">#include </span><span class="im">&lt;cmath&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="dt">int</span> cmp(pair&lt;<span class="dt">int</span>, <span class="dt">double</span>&gt; &amp;a, pair&lt;<span class="dt">int</span>, <span class="dt">double</span>&gt; &amp;b)</span>
+<span id="cb2-9"><a href="#cb2-9"></a>{</span>
+<span id="cb2-10"><a href="#cb2-10"></a>    <span class="cf">return</span> a.first &gt; b.first;</span>
+<span id="cb2-11"><a href="#cb2-11"></a>}</span>
+<span id="cb2-12"><a href="#cb2-12"></a></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="dt">int</span> main()</span>
+<span id="cb2-14"><a href="#cb2-14"></a>{</span>
+<span id="cb2-15"><a href="#cb2-15"></a>    map&lt;<span class="dt">int</span>, <span class="dt">double</span>&gt; exps;</span>
+<span id="cb2-16"><a href="#cb2-16"></a>    <span class="cf">for</span>(<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; <span class="dv">2</span>; i ++)</span>
+<span id="cb2-17"><a href="#cb2-17"></a>    {</span>
+<span id="cb2-18"><a href="#cb2-18"></a>        <span class="dt">int</span> n;</span>
+<span id="cb2-19"><a href="#cb2-19"></a>        scanf(<span class="st">&quot;</span><span class="sc">%d</span><span class="st">&quot;</span>, &amp;n);</span>
+<span id="cb2-20"><a href="#cb2-20"></a>        <span class="cf">for</span>(<span class="dt">int</span> j = <span class="dv">0</span>; j &lt; n; j ++)</span>
+<span id="cb2-21"><a href="#cb2-21"></a>        {</span>
+<span id="cb2-22"><a href="#cb2-22"></a>            <span class="dt">int</span> exp; <span class="dt">double</span> co;</span>
+<span id="cb2-23"><a href="#cb2-23"></a>            scanf(<span class="st">&quot;</span><span class="sc">%d</span><span class="st"> </span><span class="sc">%lf</span><span class="st">&quot;</span>, &amp;exp, &amp;co);</span>
+<span id="cb2-24"><a href="#cb2-24"></a>            <span class="cf">if</span>(exps.find(exp) != exps.end()) {</span>
+<span id="cb2-25"><a href="#cb2-25"></a>                exps[exp] += co;</span>
+<span id="cb2-26"><a href="#cb2-26"></a>            } <span class="cf">else</span> {</span>
+<span id="cb2-27"><a href="#cb2-27"></a>                exps[exp] = co;</span>
+<span id="cb2-28"><a href="#cb2-28"></a>            }</span>
+<span id="cb2-29"><a href="#cb2-29"></a>        }</span>
+<span id="cb2-30"><a href="#cb2-30"></a>    }</span>
+<span id="cb2-31"><a href="#cb2-31"></a>    vector&lt;pair&lt;<span class="dt">int</span>, <span class="dt">double</span>&gt; &gt; vecs(exps.begin(), exps.end());</span>
+<span id="cb2-32"><a href="#cb2-32"></a>    sort(vecs.begin(), vecs.end(), cmp);</span>
+<span id="cb2-33"><a href="#cb2-33"></a>    <span class="dt">int</span> len = <span class="dv">0</span>;</span>
+<span id="cb2-34"><a href="#cb2-34"></a>    <span class="cf">for</span>(<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; vecs.size(); i ++)</span>
+<span id="cb2-35"><a href="#cb2-35"></a>    {</span>
+<span id="cb2-36"><a href="#cb2-36"></a>        <span class="cf">if</span>(abs(vecs[i].second) &gt; <span class="fl">0.01</span>) len ++;</span>
+<span id="cb2-37"><a href="#cb2-37"></a>    }</span>
+<span id="cb2-38"><a href="#cb2-38"></a>    printf(<span class="st">&quot;</span><span class="sc">%d</span><span class="st">&quot;</span>, len);</span>
+<span id="cb2-39"><a href="#cb2-39"></a>    <span class="cf">for</span>(<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; vecs.size(); i ++)</span>
+<span id="cb2-40"><a href="#cb2-40"></a>    {</span>
+<span id="cb2-41"><a href="#cb2-41"></a>        <span class="cf">if</span>(abs(vecs[i].second) &gt; <span class="fl">0.01</span>) printf(<span class="st">&quot; </span><span class="sc">%d</span><span class="st"> %.1f&quot;</span>, vecs[i].first, vecs[i].second);</span>
+<span id="cb2-42"><a href="#cb2-42"></a>    }</span>
+<span id="cb2-43"><a href="#cb2-43"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb2-44"><a href="#cb2-44"></a>}</span></code></pre></div>
+<h3 id="emergency-25分">1003 Emergency (25分)</h3>
+<p>这一题涉及了深搜，但是柳神貌似是用Dijkstra做的，有空可以看看Dijkstra怎么寻找多条最短路径吧。</p>
+<p>深搜就比较简单了，无脑暴力搜索即可。注意点在于在从某个节点退出的时候，记得减去路径长度和救援队数。</p>
+<p>最后一个测试点如果直接搜索的话时间可能较长，用c++没有超时（154ms，又不是不能用），用Java之类的估计就超了，可以考虑剪枝，遍历到加上路径长度大于当前最小路径长度的节点的时候直接跳过，这样可以把时间减到7ms。</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a><span class="pp">#include </span><span class="im">&lt;cstdio&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="pp">#include </span><span class="im">&lt;climits&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="pp">#include </span><span class="im">&lt;algorithm&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb3-7"><a href="#cb3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="dt">int</span> n, m, c1, c2;</span>
+<span id="cb3-9"><a href="#cb3-9"></a>vector&lt;<span class="dt">int</span>&gt; teams;</span>
+<span id="cb3-10"><a href="#cb3-10"></a>vector&lt;<span class="dt">bool</span>&gt; visited(<span class="dv">500</span>, <span class="kw">false</span>);</span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="dt">int</span> road[<span class="dv">500</span>][<span class="dv">500</span>];</span>
+<span id="cb3-12"><a href="#cb3-12"></a></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="dt">int</span> paths = <span class="dv">0</span>;</span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="dt">int</span> length = INT_MAX;</span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="dt">int</span> tmpLength = <span class="dv">0</span>;</span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="dt">int</span> res = -<span class="dv">1</span>;</span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="dt">int</span> tmpRes = <span class="dv">0</span>;</span>
+<span id="cb3-18"><a href="#cb3-18"></a></span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="dt">void</span> dfs(<span class="dt">int</span> start)</span>
+<span id="cb3-20"><a href="#cb3-20"></a>{</span>
+<span id="cb3-21"><a href="#cb3-21"></a>    tmpRes += teams[start];</span>
+<span id="cb3-22"><a href="#cb3-22"></a>    <span class="cf">if</span>(start == c2)</span>
+<span id="cb3-23"><a href="#cb3-23"></a>    {</span>
+<span id="cb3-24"><a href="#cb3-24"></a>        <span class="cf">if</span>(tmpLength &lt; length)</span>
+<span id="cb3-25"><a href="#cb3-25"></a>        {</span>
+<span id="cb3-26"><a href="#cb3-26"></a>            length = tmpLength;</span>
+<span id="cb3-27"><a href="#cb3-27"></a>            paths = <span class="dv">1</span>;</span>
+<span id="cb3-28"><a href="#cb3-28"></a>            res = tmpRes;</span>
+<span id="cb3-29"><a href="#cb3-29"></a>        } <span class="cf">else</span> <span class="cf">if</span>(tmpLength == length)</span>
+<span id="cb3-30"><a href="#cb3-30"></a>        {</span>
+<span id="cb3-31"><a href="#cb3-31"></a>            paths ++;</span>
+<span id="cb3-32"><a href="#cb3-32"></a>            <span class="cf">if</span>(tmpRes &gt; res) res = tmpRes;</span>
+<span id="cb3-33"><a href="#cb3-33"></a>        }</span>
+<span id="cb3-34"><a href="#cb3-34"></a>        tmpRes -= teams[start];</span>
+<span id="cb3-35"><a href="#cb3-35"></a>        <span class="cf">return</span>;</span>
+<span id="cb3-36"><a href="#cb3-36"></a>    }</span>
+<span id="cb3-37"><a href="#cb3-37"></a>    visited[start] = <span class="kw">true</span>;</span>
+<span id="cb3-38"><a href="#cb3-38"></a>    <span class="cf">for</span>(<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; n; i ++)</span>
+<span id="cb3-39"><a href="#cb3-39"></a>    {</span>
+<span id="cb3-40"><a href="#cb3-40"></a>        <span class="cf">if</span>(visited[i] == <span class="kw">false</span> &amp;&amp; road[start][i] != <span class="dv">0</span>)</span>
+<span id="cb3-41"><a href="#cb3-41"></a>        {</span>
+<span id="cb3-42"><a href="#cb3-42"></a>            tmpLength += road[start][i];</span>
+<span id="cb3-43"><a href="#cb3-43"></a>            <span class="cf">if</span>(tmpLength &gt; length)</span>
+<span id="cb3-44"><a href="#cb3-44"></a>            {</span>
+<span id="cb3-45"><a href="#cb3-45"></a>                tmpLength -= road[start][i];</span>
+<span id="cb3-46"><a href="#cb3-46"></a>                <span class="cf">continue</span>;</span>
+<span id="cb3-47"><a href="#cb3-47"></a>            }</span>
+<span id="cb3-48"><a href="#cb3-48"></a>            dfs(i);</span>
+<span id="cb3-49"><a href="#cb3-49"></a>            tmpLength -= road[start][i];</span>
+<span id="cb3-50"><a href="#cb3-50"></a>        }</span>
+<span id="cb3-51"><a href="#cb3-51"></a>    }</span>
+<span id="cb3-52"><a href="#cb3-52"></a>    visited[start] = <span class="kw">false</span>;</span>
+<span id="cb3-53"><a href="#cb3-53"></a>    tmpRes -= teams[start];</span>
+<span id="cb3-54"><a href="#cb3-54"></a>    <span class="cf">return</span>;</span>
+<span id="cb3-55"><a href="#cb3-55"></a>}</span>
+<span id="cb3-56"><a href="#cb3-56"></a></span>
+<span id="cb3-57"><a href="#cb3-57"></a><span class="dt">int</span> main()</span>
+<span id="cb3-58"><a href="#cb3-58"></a>{</span>
+<span id="cb3-59"><a href="#cb3-59"></a>    scanf(<span class="st">&quot;</span><span class="sc">%d</span><span class="st"> </span><span class="sc">%d</span><span class="st"> </span><span class="sc">%d</span><span class="st"> </span><span class="sc">%d</span><span class="st">&quot;</span>, &amp;n, &amp;m, &amp;c1, &amp;c2);</span>
+<span id="cb3-60"><a href="#cb3-60"></a>    <span class="cf">for</span>(<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; n; i ++)</span>
+<span id="cb3-61"><a href="#cb3-61"></a>    {</span>
+<span id="cb3-62"><a href="#cb3-62"></a>        <span class="dt">int</span> tmp;</span>
+<span id="cb3-63"><a href="#cb3-63"></a>        scanf(<span class="st">&quot;</span><span class="sc">%d</span><span class="st">&quot;</span>, &amp;tmp);</span>
+<span id="cb3-64"><a href="#cb3-64"></a>        teams.push_back(tmp);</span>
+<span id="cb3-65"><a href="#cb3-65"></a>    }</span>
+<span id="cb3-66"><a href="#cb3-66"></a>    <span class="cf">for</span>(<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; m; i ++)</span>
+<span id="cb3-67"><a href="#cb3-67"></a>    {</span>
+<span id="cb3-68"><a href="#cb3-68"></a>        <span class="dt">int</span> a, b, l;</span>
+<span id="cb3-69"><a href="#cb3-69"></a>        scanf(<span class="st">&quot;</span><span class="sc">%d</span><span class="st"> </span><span class="sc">%d</span><span class="st"> </span><span class="sc">%d</span><span class="st">&quot;</span>, &amp;a, &amp;b, &amp;l);</span>
+<span id="cb3-70"><a href="#cb3-70"></a>        road[a][b] = l;</span>
+<span id="cb3-71"><a href="#cb3-71"></a>        road[b][a] = l;</span>
+<span id="cb3-72"><a href="#cb3-72"></a>    }</span>
+<span id="cb3-73"><a href="#cb3-73"></a>    dfs(c1);</span>
+<span id="cb3-74"><a href="#cb3-74"></a>    printf(<span class="st">&quot;</span><span class="sc">%d</span><span class="st"> </span><span class="sc">%d</span><span class="st">&quot;</span>, paths, res);</span>
+<span id="cb3-75"><a href="#cb3-75"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb3-76"><a href="#cb3-76"></a>}</span></code></pre></div>
+<h3 id="counting-leaves-30分">1004 Counting Leaves (30分)</h3>
+<p>主要是树的层序遍历，可以使用队列queue，也可以自己写数组模拟队列。</p>
+<p>注意一下，各个容器（如vector和queue）中的empty()方法不是清空该容器，而是返回一个bool值，用来判断该容器是否为空，这一点和Java很不一样。</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1"></a><span class="pp">#include </span><span class="im">&lt;cstdio&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="pp">#include </span><span class="im">&lt;queue&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="pp">#include </span><span class="im">&lt;algorithm&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb4-7"><a href="#cb4-7"></a></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="dt">int</span> n, m;</span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="kw">struct</span> node {</span>
+<span id="cb4-11"><a href="#cb4-11"></a>    vector&lt;<span class="dt">int</span>&gt; children;</span>
+<span id="cb4-12"><a href="#cb4-12"></a>};</span>
+<span id="cb4-13"><a href="#cb4-13"></a></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="dt">int</span> main()</span>
+<span id="cb4-15"><a href="#cb4-15"></a>{</span>
+<span id="cb4-16"><a href="#cb4-16"></a>    scanf(<span class="st">&quot;</span><span class="sc">%d</span><span class="st"> </span><span class="sc">%d</span><span class="st">&quot;</span>, &amp;n, &amp;m);</span>
+<span id="cb4-17"><a href="#cb4-17"></a>    vector&lt;node&gt; nodes(n+<span class="dv">1</span>);</span>
+<span id="cb4-18"><a href="#cb4-18"></a>    <span class="cf">for</span>(<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; m; i ++)</span>
+<span id="cb4-19"><a href="#cb4-19"></a>    {</span>
+<span id="cb4-20"><a href="#cb4-20"></a>        <span class="dt">int</span> id, k;</span>
+<span id="cb4-21"><a href="#cb4-21"></a>        scanf(<span class="st">&quot;</span><span class="sc">%d</span><span class="st"> </span><span class="sc">%d</span><span class="st">&quot;</span>, &amp;id, &amp;k);</span>
+<span id="cb4-22"><a href="#cb4-22"></a>        <span class="cf">for</span>(<span class="dt">int</span> j = <span class="dv">0</span>; j &lt; k; j ++)</span>
+<span id="cb4-23"><a href="#cb4-23"></a>        {</span>
+<span id="cb4-24"><a href="#cb4-24"></a>            <span class="dt">int</span> tmp;</span>
+<span id="cb4-25"><a href="#cb4-25"></a>            scanf(<span class="st">&quot;</span><span class="sc">%d</span><span class="st">&quot;</span>, &amp;tmp);</span>
+<span id="cb4-26"><a href="#cb4-26"></a>            nodes[id].children.push_back(tmp);</span>
+<span id="cb4-27"><a href="#cb4-27"></a>        }</span>
+<span id="cb4-28"><a href="#cb4-28"></a>    }</span>
+<span id="cb4-29"><a href="#cb4-29"></a>    queue&lt;<span class="dt">int</span>&gt; q;</span>
+<span id="cb4-30"><a href="#cb4-30"></a>    q.push(<span class="dv">1</span>);</span>
+<span id="cb4-31"><a href="#cb4-31"></a>    vector&lt;<span class="dt">int</span>&gt; reses;</span>
+<span id="cb4-32"><a href="#cb4-32"></a>    <span class="cf">while</span>(q.empty() == <span class="kw">false</span>)</span>
+<span id="cb4-33"><a href="#cb4-33"></a>    {</span>
+<span id="cb4-34"><a href="#cb4-34"></a>        vector&lt;<span class="dt">int</span>&gt; layer;</span>
+<span id="cb4-35"><a href="#cb4-35"></a>        <span class="cf">while</span>(q.size() != <span class="dv">0</span>)</span>
+<span id="cb4-36"><a href="#cb4-36"></a>        {</span>
+<span id="cb4-37"><a href="#cb4-37"></a>            layer.push_back(q.front());</span>
+<span id="cb4-38"><a href="#cb4-38"></a>            q.pop();</span>
+<span id="cb4-39"><a href="#cb4-39"></a>        }</span>
+<span id="cb4-40"><a href="#cb4-40"></a>        <span class="dt">int</span> res = <span class="dv">0</span>;</span>
+<span id="cb4-41"><a href="#cb4-41"></a>        <span class="cf">for</span>(<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; layer.size(); i ++)</span>
+<span id="cb4-42"><a href="#cb4-42"></a>        {</span>
+<span id="cb4-43"><a href="#cb4-43"></a>            <span class="dt">int</span> index = layer[i];</span>
+<span id="cb4-44"><a href="#cb4-44"></a>            <span class="cf">if</span>(nodes[index].children.size() == <span class="dv">0</span>)</span>
+<span id="cb4-45"><a href="#cb4-45"></a>            {</span>
+<span id="cb4-46"><a href="#cb4-46"></a>                res ++;</span>
+<span id="cb4-47"><a href="#cb4-47"></a>            } <span class="cf">else</span> {</span>
+<span id="cb4-48"><a href="#cb4-48"></a>                <span class="cf">for</span>(<span class="dt">int</span> j = <span class="dv">0</span>; j &lt; nodes[index].children.size(); j ++)</span>
+<span id="cb4-49"><a href="#cb4-49"></a>                {</span>
+<span id="cb4-50"><a href="#cb4-50"></a>                    q.push(nodes[index].children[j]);</span>
+<span id="cb4-51"><a href="#cb4-51"></a>                }</span>
+<span id="cb4-52"><a href="#cb4-52"></a>            }</span>
+<span id="cb4-53"><a href="#cb4-53"></a>        }</span>
+<span id="cb4-54"><a href="#cb4-54"></a>        reses.push_back(res);</span>
+<span id="cb4-55"><a href="#cb4-55"></a>    }</span>
+<span id="cb4-56"><a href="#cb4-56"></a>    <span class="cf">for</span>(<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; reses.size(); i ++)</span>
+<span id="cb4-57"><a href="#cb4-57"></a>    {</span>
+<span id="cb4-58"><a href="#cb4-58"></a>        <span class="cf">if</span>(i == reses.size() - <span class="dv">1</span>)</span>
+<span id="cb4-59"><a href="#cb4-59"></a>        {</span>
+<span id="cb4-60"><a href="#cb4-60"></a>            printf(<span class="st">&quot;</span><span class="sc">%d</span><span class="st">&quot;</span>, reses[i]);</span>
+<span id="cb4-61"><a href="#cb4-61"></a>        } <span class="cf">else</span> {</span>
+<span id="cb4-62"><a href="#cb4-62"></a>            printf(<span class="st">&quot;</span><span class="sc">%d</span><span class="st"> &quot;</span>, reses[i]);</span>
+<span id="cb4-63"><a href="#cb4-63"></a>        }</span>
+<span id="cb4-64"><a href="#cb4-64"></a>    }</span>
+<span id="cb4-65"><a href="#cb4-65"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb4-66"><a href="#cb4-66"></a>}</span></code></pre></div>
+<h3 id="spell-it-right-20分">1005 Spell It Right (20分)</h3>
+<p>总体是个水题，主要就是考察一下输入输出和字符串的运用，比较坑的是，所有的测试用例最后貌似都会有一个回车符，直接用<code>while(scanf("%c", &amp;tmp) != EOF)</code>会读进去，得排除掉。</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1"></a><span class="pp">#include </span><span class="im">&lt;cstdio&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="pp">#include </span><span class="im">&lt;string&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="dt">int</span> main()</span>
+<span id="cb5-8"><a href="#cb5-8"></a>{</span>
+<span id="cb5-9"><a href="#cb5-9"></a>    <span class="dt">char</span> tmp;</span>
+<span id="cb5-10"><a href="#cb5-10"></a>    <span class="dt">int</span> sum = <span class="dv">0</span>;</span>
+<span id="cb5-11"><a href="#cb5-11"></a>    <span class="cf">while</span>(scanf(<span class="st">&quot;</span><span class="sc">%c</span><span class="st">&quot;</span>, &amp;tmp) != EOF)</span>
+<span id="cb5-12"><a href="#cb5-12"></a>    {</span>
+<span id="cb5-13"><a href="#cb5-13"></a>        <span class="cf">if</span>(<span class="ch">&#39;0&#39;</span> &lt;= tmp &amp;&amp; tmp &lt;= <span class="ch">&#39;9&#39;</span>) sum += (tmp - <span class="ch">&#39;0&#39;</span>);</span>
+<span id="cb5-14"><a href="#cb5-14"></a>    }</span>
+<span id="cb5-15"><a href="#cb5-15"></a>    string sumStr = to_string(sum);</span>
+<span id="cb5-16"><a href="#cb5-16"></a>    <span class="dt">int</span> len = sumStr.length();</span>
+<span id="cb5-17"><a href="#cb5-17"></a>    string numStr[] = {<span class="st">&quot;zero&quot;</span>, <span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>, <span class="st">&quot;four&quot;</span>, <span class="st">&quot;five&quot;</span>, <span class="st">&quot;six&quot;</span>, <span class="st">&quot;seven&quot;</span>, <span class="st">&quot;eight&quot;</span>, <span class="st">&quot;nine&quot;</span>};</span>
+<span id="cb5-18"><a href="#cb5-18"></a>    cout &lt;&lt; numStr[sumStr[<span class="dv">0</span>] - <span class="ch">&#39;0&#39;</span>];</span>
+<span id="cb5-19"><a href="#cb5-19"></a>    <span class="cf">for</span>(<span class="dt">int</span> i = <span class="dv">1</span>; i &lt; len; i ++)</span>
+<span id="cb5-20"><a href="#cb5-20"></a>    {</span>
+<span id="cb5-21"><a href="#cb5-21"></a>        cout &lt;&lt; <span class="st">&quot; &quot;</span> &lt;&lt; numStr[sumStr[i] - <span class="ch">&#39;0&#39;</span>];</span>
+<span id="cb5-22"><a href="#cb5-22"></a>    }</span>
+<span id="cb5-23"><a href="#cb5-23"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb5-24"><a href="#cb5-24"></a>}</span></code></pre></div>
+<h3 id="sign-in-and-sign-out-25分">1006 Sign In and Sign Out (25分)</h3>
+<p>水题，一边读一边把时间转成秒数，比较最后输出即可。</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1"></a><span class="pp">#include </span><span class="im">&lt;cstdio&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="pp">#include </span><span class="im">&lt;string&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb6-6"><a href="#cb6-6"></a></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="dt">int</span> main()</span>
+<span id="cb6-8"><a href="#cb6-8"></a>{</span>
+<span id="cb6-9"><a href="#cb6-9"></a>    <span class="dt">int</span> n;</span>
+<span id="cb6-10"><a href="#cb6-10"></a>    scanf(<span class="st">&quot;</span><span class="sc">%d</span><span class="st">&quot;</span>, &amp;n);</span>
+<span id="cb6-11"><a href="#cb6-11"></a>    string in;</span>
+<span id="cb6-12"><a href="#cb6-12"></a>    <span class="dt">int</span> inTime = <span class="dv">23</span> * <span class="dv">3600</span> + <span class="dv">59</span> * <span class="dv">60</span> + <span class="dv">59</span> * <span class="dv">59</span>;</span>
+<span id="cb6-13"><a href="#cb6-13"></a>    string out;</span>
+<span id="cb6-14"><a href="#cb6-14"></a>    <span class="dt">int</span> outTime = <span class="dv">0</span>;</span>
+<span id="cb6-15"><a href="#cb6-15"></a>    <span class="cf">for</span>(<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; n; i ++)</span>
+<span id="cb6-16"><a href="#cb6-16"></a>    {</span>
+<span id="cb6-17"><a href="#cb6-17"></a>        string tmp;</span>
+<span id="cb6-18"><a href="#cb6-18"></a>        <span class="dt">int</span> signin[<span class="dv">3</span>], signout[<span class="dv">3</span>];</span>
+<span id="cb6-19"><a href="#cb6-19"></a>        cin &gt;&gt; tmp;</span>
+<span id="cb6-20"><a href="#cb6-20"></a>        scanf(<span class="st">&quot;</span><span class="sc">%d</span><span class="st">:</span><span class="sc">%d</span><span class="st">:</span><span class="sc">%d</span><span class="st"> </span><span class="sc">%d</span><span class="st">:</span><span class="sc">%d</span><span class="st">:</span><span class="sc">%d</span><span class="st">&quot;</span>, &amp;signin[<span class="dv">0</span>], &amp;signin[<span class="dv">1</span>], &amp;signin[<span class="dv">2</span>], &amp;signout[<span class="dv">0</span>], &amp;signout[<span class="dv">1</span>], &amp;signout[<span class="dv">2</span>]);</span>
+<span id="cb6-21"><a href="#cb6-21"></a>        <span class="dt">int</span> signinSec = signin[<span class="dv">0</span>] * <span class="dv">3600</span> + signin[<span class="dv">1</span>] * <span class="dv">60</span> + signin[<span class="dv">2</span>];</span>
+<span id="cb6-22"><a href="#cb6-22"></a>        <span class="dt">int</span> signoutSec = signout[<span class="dv">0</span>] * <span class="dv">3600</span> + signout[<span class="dv">1</span>] * <span class="dv">60</span> + signout[<span class="dv">2</span>];</span>
+<span id="cb6-23"><a href="#cb6-23"></a>        <span class="cf">if</span>(signinSec &lt; inTime) </span>
+<span id="cb6-24"><a href="#cb6-24"></a>        {</span>
+<span id="cb6-25"><a href="#cb6-25"></a>            in = tmp;</span>
+<span id="cb6-26"><a href="#cb6-26"></a>            inTime = signinSec;</span>
+<span id="cb6-27"><a href="#cb6-27"></a>        }</span>
+<span id="cb6-28"><a href="#cb6-28"></a>        <span class="cf">if</span>(signoutSec &gt; outTime)</span>
+<span id="cb6-29"><a href="#cb6-29"></a>        {</span>
+<span id="cb6-30"><a href="#cb6-30"></a>            out = tmp;</span>
+<span id="cb6-31"><a href="#cb6-31"></a>            outTime = signoutSec;</span>
+<span id="cb6-32"><a href="#cb6-32"></a>        }</span>
+<span id="cb6-33"><a href="#cb6-33"></a>    }</span>
+<span id="cb6-34"><a href="#cb6-34"></a>    cout &lt;&lt; in &lt;&lt; <span class="st">&quot; &quot;</span> &lt;&lt; out;</span>
+<span id="cb6-35"><a href="#cb6-35"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb6-36"><a href="#cb6-36"></a>}</span></code></pre></div>
+</div>
+</body>
+</html>
