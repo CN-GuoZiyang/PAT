@@ -26,7 +26,7 @@ int main()
         scanf("%lf %lf", &stations[i].price, &stations[i].dis);
     }
     stations[n].dis = d;
-    stations[n].price = 999999.9;
+    stations[n].price = 0.0;
     sort(stations.begin(), stations.end(), cmp);
     if(stations[0].dis != 0)
     {
@@ -38,7 +38,7 @@ int main()
     double totalPrice = 0.0;
     double cc = 0.0;
     
-    
+
 
     printf("%.2lf", totalPrice);
     return 0;
